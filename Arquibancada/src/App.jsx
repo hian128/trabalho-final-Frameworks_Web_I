@@ -15,7 +15,7 @@ function App() {
         <Outlet />
       </main>
 
-      {/* <Footer destino="/Integrantes" nome="Integrantes" mostrar={true} /> */}
+      <Footer destino="/Integrantes" nome="Integrantes" mostrar={true} />
     </>
   );
 }
