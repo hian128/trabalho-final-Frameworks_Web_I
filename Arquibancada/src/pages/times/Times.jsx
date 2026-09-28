@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import CardClube from "../../components/CardClube";
 
 const TimesContainer = styled.div`
   min-height: 70vh;
@@ -17,7 +18,7 @@ const Titulo = styled.h1`
 function Times() {
   return (
     <TimesContainer>
-      <Titulo>Times do brasileirão.</Titulo>
+      <CardClube/>
     </TimesContainer>
   );
 }

@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import Live from "./pages/live/Live";
 import Times from "./pages/times/Times";
-import Integrantes from "./pages/Integrantes";
+import Integrantes from "./pages/integrantes/Integrantes";
 import Home from "./components/Home";
 import Campeonatos from "./pages/campeonatos/Campeonatos";
 

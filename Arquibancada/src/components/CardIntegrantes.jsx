@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Card, Imagem, Link, ListaLinks, Nome, Descricao, LogoLinks } from "./CardIntegantes.styles"
 import logoLinkedIn from "../assets/logos/linkedin-svgrepo-com.svg";
 import logoGitHub from "../assets/logos/github-svgrepo-com.svg";

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 
-
 export const Card = styled.div`
     width: 450px;
     min-height: 400px;
@@ -11,8 +10,8 @@ export const Card = styled.div`
 
     padding: 25px;
 
-    background: black;
-    border: 1px solid #1f2937;
+    background: #121824;
+    border: 1px solid #1f293d;
     border-radius: 16px;
 
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
@@ -24,7 +23,7 @@ export const Card = styled.div`
 
     &:hover {
         transform: translateY(-8px);
-        border-color: #38bdf8;
+        border-color: #00e676;
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
     }
 `;
@@ -36,7 +35,7 @@ export const Imagem = styled.img`
     object-fit: cover;
 
     border-radius: 50%;
-    border: 3px solid #38bdf8;
+    border: 3px solid #00e676;
 
     margin-bottom: 20px;
 `;
@@ -44,7 +43,7 @@ export const Imagem = styled.img`
 export const Nome = styled.h2`
     margin: 0 0 10px;
 
-    color: white;
+    color: #ffffff;
     font-size: 22px;
     font-weight: 700;
 
@@ -54,7 +53,7 @@ export const Nome = styled.h2`
 export const Descricao = styled.p`
     margin: 0;
 
-    color: #9ca3af;
+    color: #94a3b8;
     font-size: 14px;
     line-height: 1.6;
 
@@ -78,13 +77,14 @@ export const Link = styled.a`
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor:pointer;
+    cursor: pointer;
+
     width: 42px;
     height: 42px;
 
     border-radius: 50%;
 
-    background: #fff;
+    background: #ffffff;
 
     transition:
         transform 0.3s ease,
@@ -92,7 +92,7 @@ export const Link = styled.a`
 
     &:hover {
         transform: translateY(-5px);
-        background: #38bdf8;
+        background: #00e676;
     }
 `;
 

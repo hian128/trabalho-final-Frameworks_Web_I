@@ -121,7 +121,7 @@ function Header() {
 
       {/* 2. Menu de Navegação */}
       <NavMenu>
-        <NavLink to="/campeonatos" end>
+        <NavLink to="/campeonatos">
           Campeonatos
         </NavLink>
 
