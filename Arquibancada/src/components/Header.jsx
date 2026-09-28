@@ -121,9 +121,7 @@ function Header() {
 
       {/* 2. Menu de Navegação */}
       <NavMenu>
-        <NavLink to="/campeonatos">
-          Campeonatos
-        </NavLink>
+        <NavLink to="/campeonatos">Brasileirão Serie A</NavLink>
 
         <NavLink to="/live">
           <Activity size={18} />
