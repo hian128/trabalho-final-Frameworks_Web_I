@@ -7,41 +7,23 @@ import {
     LinkClube
 } from "./CardClube.styles";
 
-export default function CardClube() {
-    const clube = {
-    nome: "Cruzeiro",
-    escudo: "#",
-    serie: "Brasileirão Série A",
-    link: "#"
-};
+export default function CardClube({ clube }) {
     return (
         <CardContainer>
-
             <Escudo
                 src={clube.escudo}
                 alt={`Escudo do ${clube.nome}`}
             />
 
             <Informacoes>
-
-                <Nome>
-                    {clube.nome}
-                </Nome>
-
-                <Serie>
-                    {clube.serie}
-                </Serie>
-
-                <LinkClube
-                    href={clube.link}
-                    target="_blank"
-                    rel="noreferrer"
-                >
-                    Página do clube →
-                </LinkClube>
-
+                <Nome>{clube.nome}</Nome>
+                <Serie>{clube.serie}</Serie>
+                {clube.link && (
+                    <LinkClube href={clube.link} target="_blank" rel="noreferrer">
+                        Página do clube →
+                    </LinkClube>
+                )}
             </Informacoes>
-
         </CardContainer>
     );
 }

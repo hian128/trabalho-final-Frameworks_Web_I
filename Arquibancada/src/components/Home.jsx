@@ -10,16 +10,23 @@ const HomeContainer = styled.div`
 `;
 
 const Titulo = styled.h1`
-  color: #38bdf8;
+  color: #334155;
   font-weight: bold;
   font-size: 1.5rem;
+`;
+
+const Subtitulo = styled.h3`
+  color: #334155;
+  font-weight: bold;
 `;
 
 function Home() {
   return (
     <HomeContainer>
-      <Titulo>Bem-vindo ao Site ArquiBancada!</Titulo>
-      <Titulo>Selecione alguma das opções acima para navegar</Titulo>
+      <Titulo>O futebol brasileiro em um só lugar</Titulo>
+      <Subtitulo>
+        Acompanhe o Brasileirão, veja partidas ao vivo e conheça as equipes.
+      </Subtitulo>
     </HomeContainer>
   );
 }
