@@ -3,42 +3,69 @@ import styled from "styled-components";
 import { buscarRodadas } from "../../api/footballDataApi";
 
 const CampContainer = styled.div`
+  width: min(1000px, 100%);
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2rem;
-  padding: 2rem 0;
+  gap: 1.5rem;
+  padding: 2.5rem 0 4rem;
   width: 100%;
 `;
 
 const Titulo = styled.h1`
-  color: #38bdf8;
-  font-weight: bold;
-  font-style: italic;
+  margin: 0;
+  color: #f4f7f3;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  letter-spacing: -0.055em;
+`;
+
+const Introducao = styled.div`
+  width: 100%;
+  margin-bottom: 0.5rem;
+  p { margin: 0.55rem 0 0; color: #9eaca2; line-height: 1.6; }
+  .eyebrow { color: #8ee6a0; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.15em; text-transform: uppercase; }
 `;
 
 const SeletorRodada = styled.select`
-  padding: 0.7rem 1rem;
-  color: #ffffff;
-  background: #121824;
-  border: 1px solid #334155;
-  border-radius: 8px;
+  align-self: flex-start;
+  padding: 0.85rem 1rem;
+  color: #f4f7f3;
+  background: #15221b;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
   font: inherit;
+  cursor: pointer;
+  &:focus-visible { outline: 2px solid #8ee6a0; outline-offset: 2px; }
+`;
+
+const BuscaPartidas = styled.input`
+  align-self: stretch;
+  max-width: 460px;
+  padding: 0.85rem 1rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 12px;
+  outline: 0;
+  background: #121d18;
+  color: #f4f7f3;
+  font: inherit;
+  &::placeholder { color: #829087; }
+  &:focus { border-color: #70ce82; box-shadow: 0 0 0 3px rgba(112, 206, 130, 0.12); }
 `;
 
 const CartaoRodada = styled.section`
   width: 100%;
-  max-width: 900px;
+  max-width: 100%;
   box-sizing: border-box;
   padding: 1.25rem;
-  background: #121824;
-  border: 1px solid #1f293d;
-  border-radius: 12px;
+  background: linear-gradient(145deg, #15221b, #111a16);
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  border-radius: 20px;
 `;
 
 const TituloRodada = styled.h2`
   margin: 0 0 1rem;
-  color: #38bdf8;
+  color: #8ee6a0;
   font-size: 1.25rem;
 `;
 
@@ -48,10 +75,10 @@ const Partida = styled.div`
   align-items: center;
   gap: 1rem;
   padding: 0.75rem 0;
-  color: #ffffff;
+  color: #ecf2ed;
 
   & + & {
-    border-top: 1px solid #1f293d;
+    border-top: 1px solid rgba(148, 163, 184, 0.13);
   }
 
   @media (max-width: 600px) {
@@ -96,22 +123,23 @@ const Escudo = styled.img`
 `;
 
 const Placar = styled.strong`
-  color: #00e676;
+  color: #8ee6a0;
   white-space: nowrap;
 `;
 
 const DataPartida = styled.p`
   grid-column: 1 / -1;
   margin: 0;
-  color: #94a3b8;
+  color: #9eaca2;
   text-align: center;
   font-size: 0.85rem;
 `;
 
 const Mensagem = styled.p`
-  color: ${({ $erro }) => ($erro ? "#b91c1c" : "#334155")};
+  color: ${({ $erro }) => ($erro ? "#ffaaaa" : "#aab7ad")};
   text-align: center;
   font-weight: 600;
+  line-height: 1.6;
 `;
 
 function formatarData(data) {
@@ -123,11 +151,22 @@ function formatarData(data) {
   });
 }
 
+function normalizar(texto) {
+  return texto.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR");
+}
+
 function Campeonatos() {
   const [rodadaSelecionada, setRodadaSelecionada] = useState("");
   const [partidas, setPartidas] = useState([]);
   const [carregando, setCarregando] = useState(false);
   const [erro, setErro] = useState("");
+  const [buscaPartida, setBuscaPartida] = useState("");
+
+  const partidasFiltradas = partidas.filter((partida) => {
+    const termo = normalizar(buscaPartida.trim());
+    if (!termo) return true;
+    return normalizar(`${partida.homeTeam.name} ${partida.homeTeam.shortName ?? ""} ${partida.awayTeam.name} ${partida.awayTeam.shortName ?? ""}`).includes(termo);
+  });
 
   useEffect(() => {
     if (!rodadaSelecionada) {
@@ -165,10 +204,16 @@ function Campeonatos() {
 
   function selecionarRodada(event) {
     setRodadaSelecionada(event.target.value);
+    setBuscaPartida("");
   }
 
   return (
     <CampContainer>
+      <Introducao>
+        <p className="eyebrow">Temporada nacional</p>
+        <Titulo>Brasileirão Série A</Titulo>
+        <p>Escolha uma rodada para consultar confrontos e resultados disponíveis.</p>
+      </Introducao>
       <SeletorRodada
         value={rodadaSelecionada}
         onChange={selecionarRodada}
@@ -182,19 +227,32 @@ function Campeonatos() {
         ))}
       </SeletorRodada>
 
+      {rodadaSelecionada && !carregando && !erro && partidas.length > 0 && (
+        <BuscaPartidas
+          type="search"
+          aria-label="Filtrar partidas pelo nome de um clube"
+          placeholder="Filtrar partidas por clube..."
+          value={buscaPartida}
+          onChange={(event) => setBuscaPartida(event.target.value)}
+        />
+      )}
+
       {carregando && <Mensagem>Carregando partidas da rodada...</Mensagem>}
       {!carregando && erro && <Mensagem $erro>{erro}</Mensagem>}
       {!carregando && !erro && rodadaSelecionada && partidas.length === 0 && (
         <Mensagem>Nenhuma partida encontrada nesta rodada.</Mensagem>
       )}
+      {!carregando && !erro && buscaPartida && partidas.length > 0 && partidasFiltradas.length === 0 && (
+        <Mensagem>Nenhuma partida encontrada para “{buscaPartida}”.</Mensagem>
+      )}
       {!rodadaSelecionada && (
         <Mensagem>Selecione uma rodada para ver os resultados.</Mensagem>
       )}
 
-      {!carregando && !erro && partidas.length > 0 && (
+      {!carregando && !erro && partidasFiltradas.length > 0 && (
         <CartaoRodada>
           <TituloRodada>Rodada {rodadaSelecionada}</TituloRodada>
-          {partidas.map((partida) => {
+          {partidasFiltradas.map((partida) => {
             const golsMandante = partida.score?.fullTime?.home;
             const golsVisitante = partida.score?.fullTime?.away;
             const temPlacar = golsMandante != null && golsVisitante != null;

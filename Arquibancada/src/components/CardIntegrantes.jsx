@@ -1,4 +1,4 @@
-import { Card, Imagem, Link, ListaLinks, Nome, Descricao, LogoLinks } from "./CardIntegantes.styles"
+import { Card, Imagem, Avatar, Link, ListaLinks, Nome, Descricao, LogoLinks } from "./CardIntegantes.styles"
 import logoLinkedIn from "../assets/logos/linkedin-svgrepo-com.svg";
 import logoGitHub from "../assets/logos/github-svgrepo-com.svg";
 import logoInstagram from "../assets/logos/instagram-svgrepo-com.svg";
@@ -7,7 +7,11 @@ export default function CardIntegrantes(props) {
     return (
         <>
             <Card>
-                <Imagem src={props.imagem} alt="Foto Perfil"></Imagem>
+                {props.imagem ? (
+                    <Imagem src={props.imagem} alt={`Foto de ${props.nome}`} />
+                ) : (
+                    <Avatar aria-hidden="true">{props.nome?.split(" ").map((parte) => parte[0]).slice(0, 2).join("")}</Avatar>
+                )}
                 <Nome>{props.nome}</Nome>
                 <Descricao>{props.descricao}</Descricao>
                 <ListaLinks>

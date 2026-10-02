@@ -14,11 +14,11 @@ export default function pageFooter(props) {
       <FooterContent>
         <Logo to="/">
           <Trophy size={26} color="#00e676" />
-          Arqui<span>Bancada</span>
+          <span className="logo-name">Arqui<span>Bancada</span></span>
         </Logo>
         <Copyright>
           &copy; {new Date().getFullYear()} Arquibancada.
-          <br /> Todos os direitos ilusoriamente reservados.{" "}
+          <br /> Todos os direitos reservados.
         </Copyright>
         <Nav>
           {mostrar && (

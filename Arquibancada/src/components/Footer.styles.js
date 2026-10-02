@@ -50,7 +50,11 @@ export const Logo = styled(Link)`
     text-decoration: none;
     letter-spacing: 0.5px;
 
-    span {
+    .logo-name {
+        color: #00e676;
+    }
+
+    .logo-name span {
         color: #ffffff;
     }
 

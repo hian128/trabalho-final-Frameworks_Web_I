@@ -13,8 +13,10 @@ const AppContainer = styled.div`
 
 const ConteudoPrincipal = styled.main`
   flex: 1;
-  padding: 2rem;
-  color: #fff;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 clamp(1rem, 4vw, 3.5rem);
+  color: #f4f7f3;
 `;
 
 function App() {

@@ -1,144 +1,142 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { Trophy, Search, Activity } from "lucide-react";
+import { ArrowRight, Search, Trophy } from "lucide-react";
 
-// Contentor principal do Header
 const HeaderContainer = styled.header`
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem 2rem;
-  background-color: #121824; /* Fundo escuro tom desportivo */
-  border-bottom: 2px solid #1f293d;
-  color: #ffffff;
+  gap: 1.5rem;
+  padding: 1rem clamp(1rem, 4vw, 3.5rem);
+  background: rgba(9, 18, 17, 0.92);
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+  backdrop-filter: blur(18px);
 
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+  @media (max-width: 850px) {
+    flex-wrap: wrap;
   }
 `;
 
-// Logótipo com ícone e texto
 const Logo = styled(Link)`
   display: flex;
   align-items: center;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: #00e676; /* Verde relva */
+  gap: 0.55rem;
+  color: #8ee6a0;
+  font-size: 1.25rem;
+  font-weight: 850;
+  letter-spacing: -0.04em;
   text-decoration: none;
-  letter-spacing: 0.5px;
+  white-space: nowrap;
 
-  span {
-    color: #ffffff;
-  }
-
-  &:hover {
-    opacity: 0.9;
-  }
+  .logo-name { color: inherit; }
+  .logo-name span { color: #f4f7f3; }
 `;
 
-// Menu de navegação (Links)
 const NavMenu = styled.nav`
   display: flex;
-  gap: 1.5rem;
   align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
 
   a {
-    color: #94a3b8;
+    padding: 0.62rem 0.85rem;
+    border-radius: 999px;
+    color: #a5b2aa;
+    font-size: 0.9rem;
+    font-weight: 650;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 0.95rem;
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    transition: color 0.2s ease;
-
-    &:hover,
-    &.active {
-      color: #00e676;
-    }
+    transition: background 160ms ease, color 160ms ease;
   }
+
+  a:hover, a.active { color: #eaffed; background: rgba(82, 190, 108, 0.13); }
+
+  @media (max-width: 850px) { order: 3; width: 100%; }
 `;
 
-// Badge (Etiqueta) para indicar "Ao Vivo"
-const LiveBadge = styled.span`
-  background-color: #ef4444;
-  color: white;
-  font-size: 0.65rem;
-  padding: 0.15rem 0.4rem;
-  border-radius: 4px;
-  font-weight: 700;
-  text-transform: uppercase;
-  animation: pulse 1.5s infinite;
-
-  @keyframes pulse {
-    0% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.5;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-`;
-
-// Campo de Busca
-const SearchContainer = styled.div`
+const SearchForm = styled.form`
   display: flex;
   align-items: center;
-  background-color: #1e293b;
-  padding: 0.5rem 0.8rem;
-  border-radius: 20px;
-  border: 1px solid #334155;
-  gap: 0.5rem;
+  gap: 0.55rem;
+  width: min(280px, 30vw);
+  min-width: 190px;
+  padding: 0.3rem 0.35rem 0.3rem 0.85rem;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  color: #91a199;
 
   input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
     background: transparent;
-    border: none;
-    outline: none;
-    color: #ffffff;
+    color: #f4f7f3;
+    font: inherit;
     font-size: 0.85rem;
-    width: 160px;
-
-    &::placeholder {
-      color: #64748b;
-    }
   }
+
+  input::placeholder { color: #829087; }
+  &:focus-within { border-color: #70ce82; box-shadow: 0 0 0 3px rgba(112, 206, 130, 0.12); }
+
+  button {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    flex: 0 0 auto;
+    border: 0;
+    border-radius: 50%;
+    background: #72cf85;
+    color: #102416;
+    cursor: pointer;
+  }
+
+  @media (max-width: 850px) { width: auto; flex: 1; }
 `;
 
-function Header() {
+export default function Header() {
+  const [query, setQuery] = useState("");
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    setQuery(location.pathname === "/times" ? params.get("busca") ?? "" : "");
+  }, [location.pathname, location.search]);
+
+  function pesquisar(event) {
+    event.preventDefault();
+    const termo = query.trim();
+    navigate(termo ? `/times?busca=${encodeURIComponent(termo)}` : "/times");
+  }
+
   return (
     <HeaderContainer>
-      {/* 1. Logótipo */}
       <Logo to="/">
-        <Trophy size={26} color="#00e676" />
-        Arqui<span>Bancada</span>
+        <Trophy size={25} strokeWidth={2.4} />
+        <span className="logo-name">Arqui<span>Bancada</span></span>
       </Logo>
-
-      {/* 2. Menu de Navegação */}
-      <NavMenu>
-        <NavLink to="/campeonatos">Brasileirão Serie A</NavLink>
-
-        <NavLink to="/live">
-          <Activity size={18} />
-          Ao Vivo
-          <LiveBadge>LIVE</LiveBadge>
-        </NavLink>
-
+      <NavMenu aria-label="Navegação principal">
+        <NavLink to="/" end>Início</NavLink>
+        <NavLink to="/campeonatos">Brasileirão</NavLink>
         <NavLink to="/times">Equipes</NavLink>
+        <NavLink to="/integrantes">Integrantes</NavLink>
       </NavMenu>
-
-      {/* 3. Barra de Pesquisa */}
-      <SearchContainer>
-        <Search size={16} color="#64748b" />
-        <input type="text" placeholder="Buscar equipe ou jogo..." />
-      </SearchContainer>
+      <SearchForm role="search" onSubmit={pesquisar}>
+        <Search size={17} aria-hidden="true" />
+        <input
+          aria-label="Buscar equipe"
+          value={query}
+          onChange={(event) => setQuery(event.target.value)}
+          placeholder="Buscar equipe..."
+        />
+        <button type="submit" aria-label="Pesquisar equipe"><ArrowRight size={17} /></button>
+      </SearchForm>
     </HeaderContainer>
   );
 }
-
-export default Header;

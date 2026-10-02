@@ -2,13 +2,11 @@ import styled from "styled-components";
 
 export const CardContainer = styled.div`
     width: 100%;
-    max-width: 350px;
-
-    background: #121824;
-    border: 1px solid #1f293d;
-    border-radius: 12px;
-
-    padding: 25px;
+    min-width: 0;
+    background: linear-gradient(145deg, #15221b, #111a16);
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    border-radius: 20px;
+    padding: 1.5rem;
 
     display: flex;
     flex-direction: column;
@@ -22,19 +20,22 @@ export const CardContainer = styled.div`
         box-shadow 0.3s ease;
 
     &:hover {
-        transform: translateY(-6px);
-        border-color: #00e676;
-        box-shadow: 0 8px 25px rgba(0, 230, 118, 0.12);
+        transform: translateY(-4px);
+        border-color: rgba(142, 230, 160, 0.6);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2);
     }
 `;
 
 export const Escudo = styled.img`
-    width: 110px;
-    height: 110px;
+    width: 96px;
+    height: 96px;
 
     object-fit: contain;
 
-    margin-bottom: 20px;
+    margin-bottom: 1rem;
+    padding: 0.35rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
 `;
 
 export const Informacoes = styled.div`
@@ -49,22 +50,22 @@ export const Informacoes = styled.div`
 export const Nome = styled.h2`
     margin: 0;
 
-    color: #ffffff;
-    font-size: 20px;
+    color: #f4f7f3;
+    font-size: 1.1rem;
     font-weight: 700;
 `;
 
 export const Serie = styled.p`
     margin: 0;
 
-    color: #94a3b8;
+    color: #9eaca2;
     font-size: 14px;
 `;
 
 export const LinkClube = styled.a`
     margin-top: 10px;
 
-    color: #00e676;
+    color: #8ee6a0;
     text-decoration: none;
     font-weight: 600;
 
