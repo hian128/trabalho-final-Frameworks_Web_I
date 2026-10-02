@@ -1,67 +1,16 @@
-# Arquibancada
+# React + Vite
 
-O Arquibancada é um site para acompanhar o futebol brasileiro, com foco no Brasileirão Série A. A aplicação reúne páginas de equipes e consulta de partidas por rodada.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-O projeto foi desenvolvido para o trabalho final de **Frameworks Web I**, colocando em prática os conteúdos de React vistos na disciplina. Os dados de equipes e partidas são consultados na [API football-data.org](https://www.football-data.org/).
+Currently, two official plugins are available:
 
-## Integrantes
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-- Kayann Leandro de Sá
-- Guilherme Hermes
-- Evelyn Gregório
-- Hian Oliveira
-- Matheus Rodrigues
+## React Compiler
 
-## Tecnologias
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-- React e Vite
-- React Router para navegação entre páginas
-- Styled Components para estilização
-- Axios para as requisições à API
-- football-data.org para os dados do Brasileirão
+## Expanding the ESLint configuration
 
-## Como executar
-
-Você precisa ter o [Node.js 22.12 ou superior](https://nodejs.org/) instalado. O npm é instalado junto com o Node.js. Também é necessária conexão com a internet para buscar os dados da API.
-
-### 1. Abra o terminal na pasta do projeto
-
-Se você abriu o terminal na pasta que contém a pasta `Arquibancada`, entre nela:
-
-```bash
-cd Arquibancada
-```
-
-Se o terminal já estiver aberto dentro de `Arquibancada`, pule esse comando.
-
-### 2. Instale as dependências
-
-```bash
-npm install
-```
-
-### 3. Inicie o site
-
-```bash
-npm run dev
-```
-
-Abra no navegador o endereço mostrado no terminal, normalmente `http://localhost:5173`.
-
-## Gerar a versão de produção
-
-Para verificar se o projeto compila, execute:
-
-```bash
-npm run build
-```
-
-
-## O que dá para fazer no site
-
-- Navegar entre Início, Brasileirão Série A, Equipes e Integrantes.
-- Consultar os clubes disponíveis na competição Brasileirão Série A.
-- Buscar equipes pelo nome e filtrar as partidas da rodada selecionada pelo nome de um clube.
-- Escolher uma rodada para carregar as partidas correspondentes, com escudos, placar quando disponível e data/horário.
-
-Os dados exibidos dependem das permissões e dos limites da conta na football-data.org.
+If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
