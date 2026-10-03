@@ -10,7 +10,7 @@ O projeto foi desenvolvido para o trabalho final de **Frameworks Web I**, coloca
 - Guilherme Hermes
 - Evelyn Gregório
 - Hian Oliveira
-- Matheus Rodrigues
+- Matheus Rodrigues Daniel
 
 ## Tecnologias
 
@@ -40,7 +40,15 @@ Se o terminal já estiver aberto dentro de `Arquibancada`, pule esse comando.
 npm install
 ```
 
-### 3. Inicie o site
+## 3. Token de Configuração
+
+É necessário ter um token configurado em um arquivo .env, acesse a página da API e gere sua chave de acesso para fazer as requisições.
+
+```bash
+FOOTBALL_DATA_API_KEY="SUACHAVEAPI"
+```
+
+### 4. Inicie o site
 
 ```bash
 npm run dev
